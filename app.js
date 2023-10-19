@@ -10,27 +10,27 @@ require('dotenv').config();
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
+})
+.then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch((err) => {
+    console.error('MongoDB connection error:', err);
 });
 
-// Create a Mongoose model for employees
-const Employee = mongoose.model('Employee', {
+// Define a Mongoose schema for employees
+const employeeSchema = new mongoose.Schema({
     name: String,
     position: String,
     salary: Number,
     state: String
 });
 
-app.use(cors());
-const corsOptions = {
-    origin: 'https://taskfrontendstorage.z29.web.core.windows.net/', // Replace with your frontend's URL
-    methods: 'GET,POST',           // Specify the HTTP methods you want to allow
-    allowedHeaders: 'Content-Type', // Specify the allowed request headers
-  };
-  
-  app.use(cors(corsOptions));
+// Create a Mongoose model for employees using the schema
+const Employee = mongoose.model('Employee', employeeSchema);
 
-// Middleware to parse POST data
-app.use(bodyParser.urlencoded({ extended: true }));
+// Middleware to parse JSON data
+app.use(express.json());
 
 // Serve HTML form at the root URL
 app.get('/', (req, res) => {
@@ -72,17 +72,6 @@ app.post('/add', (req, res) => {
         });
 });
 
-// Check MongoDB connection status
-mongoose.connection.on('connected', () => {
-    console.log('Connected to MongoDB');
-});
-
-mongoose.connection.on('error', (err) => {
-    console.error('MongoDB connection error:', err);
-});
-
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
-
-

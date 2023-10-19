@@ -5,5 +5,11 @@
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.projectLanguageModel": 4,
-    "azureFunctions.preDeployTask": "npm prune (functions)"
+    "azureFunctions.preDeployTask": "npm prune (functions)",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/d99819ab-d3ce-4f3f-8df5-eb7b9954d371/resourceGroups/LMS-Dynamic-web/providers/Microsoft.Web/sites/dynamic-web",
+    "appService.deploySubpath": "."
 }

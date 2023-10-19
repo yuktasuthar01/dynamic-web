@@ -1,0 +1,18 @@
+{
+    "bindings" : [
+        {
+            "name" : "myBlob" ,
+            "type" : "blobTrigger",
+            "direction" : "in" ,
+            "path": "samples-workitems/{name}" ,
+            "connection": "AzureWebJobStorage"
+        },
+        {
+            "name": "OutputBlob" ,
+            "type": "blob",
+            "direction": "out",
+            "path" : "thumbnails/{name}_thumbnail" ,
+            "connection": "AzureWebJobStorage"
+        }
+    ]
+}
